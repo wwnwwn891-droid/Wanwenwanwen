@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tebak Gambar Horror 10 Level</title>
+
+<style>
+body{
+margin:0;
+background:black;
+color:white;
+text-align:center;
+font-family:Arial;
+}
+
+#game{
+padding-top:30px;
+}
+
+img{
+width:30%;
+margin:10px;
+border-radius:15px;
+}
+
+#ghost{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+z-index:999;
+}
+
+#ghost img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+</style>
+</head>
+
+<body>
+
+<div id="game">
+
+<h2 id="level">Level 1</h2>
+<p id="question">Pilih gambar kucing 🐱</p>
+
+<div id="images"></div>
+
+</div>
+
+<div id="ghost">
+<img src="https://i.imgur.com/8yKQF7F.jpg">
+<audio id="sound" src="https://www.myinstants.com/media/sounds/jumpscare.mp3"></audio>
+</div>
+
+<script>
+
+let level=1;
+
+const questions=[
+"Pilih gambar kucing 🐱",
+"Pilih gambar apel 🍎",
+"Pilih gambar mobil 🚗",
+"Pilih gambar bola ⚽",
+"Pilih gambar ikan 🐟",
+"Pilih gambar ayam 🐔",
+"Pilih gambar pisang 🍌",
+"Pilih gambar pesawat ✈️",
+"Pilih gambar bunga 🌸",
+"Pilih gambar rumah 🏠"
+];
+
+function loadLevel(){
+
+document.getElementById("level").innerText="Level "+level;
+document.getElementById("question").innerText=questions[level-1];
+
+let correct=Math.floor(Math.random()*3);
+
+let html="";
+
+for(let i=0;i<3;i++){
+
+if(i==correct){
+html+=`<img src="https://i.imgur.com/4AiXzf8.jpeg" onclick="win()">`;
+}else{
+html+=`<img src="https://i.imgur.com/J6l19aF.png" onclick="lose()">`;
+}
+
+}
+
+document.getElementById("images").innerHTML=html;
+
+}
+
+function win(){
+
+level++;
+
+if(level>10){
+alert("Kamu menamatkan game!");
+location.reload();
+}
+
+loadLevel();
+
+}
+
+function lose(){
+
+document.getElementById("ghost").style.display="block";
+document.getElementById("sound").play();
+
+}
+
+loadLevel();
+
+</script>
+
+</body>
+</html>
